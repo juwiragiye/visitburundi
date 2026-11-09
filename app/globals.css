@@ -1,20 +1,74 @@
 @import "tailwindcss";
-
 @theme inline {
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-body);
+  --font-display: var(--font-editorial);
 }
-
 @theme {
-  --color-forest: #123e2c;
-  --color-warm-red: #a93432;
-  --color-lake: #23617b;
-  --color-earth: #695746;
-  --color-sand: #e8dfd0;
+  --color-forest: #173e32;
+  --color-forest-light: #285945;
+  --color-warm-red: #a63c2d;
+  --color-lake: #256779;
+  --color-earth: #695d4c;
+  --color-sand: #e5ddcf;
   --color-ivory: #faf7f0;
+  --color-ink: #202d25;
+  --color-sage: #dce5d8;
+  --radius-editorial: 1.5rem;
+  --shadow-lift: 0 16px 50px #173e3218;
+  --spacing-gutter: clamp(1.25rem, 4vw, 3rem);
+  --text-display: clamp(3.5rem, 7vw, 7rem);
+  --text-display--line-height: 1.02;
 }
-
-body {
-  background: var(--color-ivory);
-  color: var(--color-forest);
-  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 7rem;
+  }
+  body {
+    @apply bg-ivory font-sans text-ink antialiased;
+  }
+  button,
+  summary,
+  select {
+    -webkit-tap-highlight-color: transparent;
+  }
+  button:not(:disabled),
+  summary {
+    cursor: pointer;
+  }
+  :focus-visible {
+    outline: 3px solid var(--color-warm-red);
+    outline-offset: 4px;
+    box-shadow: 0 0 0 3px var(--color-ivory);
+  }
+  ::selection {
+    background: var(--color-sage);
+    color: var(--color-forest);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+  @media print {
+    header,
+    footer,
+    nav,
+    .no-print {
+      display: none !important;
+    }
+    body {
+      background: white;
+      color: black;
+    }
+    main {
+      padding: 0;
+    }
+  }
 }
