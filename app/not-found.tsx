@@ -1,0 +1,2 @@
+import { ButtonLink, Container, Eyebrow } from "@/components/ui";
+export default function NotFound(){return <Container className="py-28 text-center"><Eyebrow>404 · A turn off the trail</Eyebrow><h1 className="font-display text-6xl">Let’s find your way back.</h1><p className="mx-auto mt-6 mb-8 max-w-lg text-earth">This page isn’t on our map. Return to the destinations collection and start somewhere new.</p><ButtonLink href="/destinations">Explore destinations</ButtonLink></Container>;}
