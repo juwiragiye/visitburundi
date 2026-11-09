@@ -1,0 +1,20 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-geist-sans);
+}
+
+@theme {
+  --color-forest: #123e2c;
+  --color-warm-red: #a93432;
+  --color-lake: #23617b;
+  --color-earth: #695746;
+  --color-sand: #e8dfd0;
+  --color-ivory: #faf7f0;
+}
+
+body {
+  background: var(--color-ivory);
+  color: var(--color-forest);
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+}
