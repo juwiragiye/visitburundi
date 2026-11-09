@@ -1,4 +1,35 @@
 import type { Metadata } from "next";
 import { Container, PageIntro } from "@/components/ui";
 export const metadata: Metadata = { title: "Terms — Preview notice" };
-export default function Page(){return <><PageIntro eyebrow="Legal placeholder" title="Terms" description="Draft placeholder. This is not an approved legal policy."/><Container className="max-w-3xl space-y-6 pb-24 text-earth"><p>This stakeholder preview does not operate bookings, user accounts, or real form submissions. Contact and newsletter inputs are validated on your device and are not sent or saved.</p><p>The trip planner and cookie preference use browser localStorage. No analytics or tracking cookies are installed by this application. Hosting infrastructure may process technical requests; a full provider and retention review is required before launch.</p><p>Remove local preview data by clearing this site’s browser storage. Destination content and sample journeys are illustrative planning material, not a guarantee of access or travel safety.</p><p className="font-semibold text-warm-red">Replace this page with a reviewed terms policy before public launch.</p></Container></>;}
+export default function Page() {
+  return (
+    <>
+      <PageIntro
+        eyebrow="Legal placeholder"
+        title="Terms"
+        description="Draft placeholder. This is not an approved legal policy."
+      />
+      <Container className="max-w-3xl space-y-6 pb-24 text-earth">
+        <p>
+          This stakeholder preview does not operate bookings, user accounts, or
+          real form submissions. Contact and newsletter inputs are validated on
+          your device and are not sent or saved.
+        </p>
+        <p>
+          The trip planner and cookie preference use browser localStorage. No
+          analytics or tracking cookies are installed by this application.
+          Hosting infrastructure may process technical requests; a full provider
+          and retention review is required before launch.
+        </p>
+        <p>
+          Remove local preview data by clearing this site’s browser storage.
+          Destination content and sample journeys are illustrative planning
+          material, not a guarantee of access or travel safety.
+        </p>
+        <p className="font-semibold text-warm-red">
+          Replace this page with a reviewed terms policy before public launch.
+        </p>
+      </Container>
+    </>
+  );
+}

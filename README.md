@@ -47,6 +47,7 @@ Preview indexing is disabled with robots metadata and `robots.ts`. At launch rem
 ## Sources and editorial assumptions
 
 Sources checked during implementation (9 November 2026):
+
 - [East African Community — Burundi](https://www.eac.int/eac-partner-states/burundi): currency, languages, capital. Languages are described as spoken, not all as official.
 - [EAC Burundi brief](https://www.eac.int/documents?Itemid=297&controller=download&file=7398b68f-1315-40bc-8ff2-b457acdffc75&name=Burundi.pdf.pdf&task=download.file): political and economic capitals.
 - [Burundi tourism — parks](https://tourisme.gov.bi/en/parks-and-reserves/): park landscapes.

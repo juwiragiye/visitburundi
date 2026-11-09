@@ -1,13 +1,68 @@
 import { verifyNote } from "@/lib/site";
-export type PracticalInfo = { id: string; title: string; body: string; source: string; sourceLabel: string; note: string };
-const advisory="https://travel.gc.ca/destinations/burundi";
+export type PracticalInfo = {
+  id: string;
+  title: string;
+  body: string;
+  source: string;
+  sourceLabel: string;
+  note: string;
+};
+const advisory = "https://travel.gc.ca/destinations/burundi";
 export const practicalInfo: PracticalInfo[] = [
- {id:"getting-there",title:"Getting there",body:"Bujumbura is the main international air gateway. Confirm flight schedules directly with airlines and arrange your arrival transfer ahead. Border access can change; do not assume a land crossing is open.",source:advisory,sourceLabel:"Official travel advice"},
- {id:"getting-around",title:"Getting around",body:"Plan road journeys with a reputable local operator. Road conditions, weather, fuel and access restrictions can affect routes. Leave flexibility in the itinerary and confirm arrangements before departure.",source:advisory,sourceLabel:"Transport and regional guidance"},
- {id:"visas",title:"Visas & entry documents",body:"Requirements depend on nationality, travel document and route of entry. Check with Burundi’s immigration authorities or the relevant embassy before booking. Do not use this preview as an eligibility assessment.",source:"https://www.mae.gov.bi/",sourceLabel:"Burundi Ministry of Foreign Affairs"},
- {id:"health",title:"Health & preparation",body:"Consult a qualified travel-health professional well before departure about your circumstances, vaccinations and preventive care. Check official health requirements and arrange suitable insurance, including emergency assistance.",source:advisory,sourceLabel:"Official health and entry guidance"},
- {id:"safety",title:"Safety & current advice",body:"Read your government’s current travel advisory, including regional warnings, before planning any route. Restrictions and security conditions can change quickly. This destination collection is not a statement that a place is currently safe or accessible.",source:advisory,sourceLabel:"Government of Canada — current Burundi advisory"},
- {id:"money",title:"Money & payments",body:"The currency is the Burundian franc (BIF). Ask accommodation and service providers which payment methods they currently accept. Check current exchange rules and fees with an authorized provider; this preview does not quote rates or prices.",source:"https://www.brb.bi/",sourceLabel:"Bank of the Republic of Burundi"},
- {id:"connectivity",title:"Staying connected",body:"Confirm roaming or local SIM options, identification requirements and coverage with your provider. Connectivity may be limited away from urban centres. Keep important documents and travel details available offline.",source:advisory,sourceLabel:"Official practical travel guidance"},
- {id:"best-time",title:"Best time to visit",body:"Weather varies with altitude and location. Drier periods may suit some outdoor plans, but rainfall, access and site arrangements matter more than a broad season label. Check a current forecast and ask your local guide before setting dates.",source:"https://tourisme.gov.bi/",sourceLabel:"Burundi tourism information"},
-].map(item=>({...item,note:verifyNote}));
+  {
+    id: "getting-there",
+    title: "Getting there",
+    body: "Bujumbura is the main international air gateway. Confirm flight schedules directly with airlines and arrange your arrival transfer ahead. Border access can change; do not assume a land crossing is open.",
+    source: advisory,
+    sourceLabel: "Official travel advice",
+  },
+  {
+    id: "getting-around",
+    title: "Getting around",
+    body: "Plan road journeys with a reputable local operator. Road conditions, weather, fuel and access restrictions can affect routes. Leave flexibility in the itinerary and confirm arrangements before departure.",
+    source: advisory,
+    sourceLabel: "Transport and regional guidance",
+  },
+  {
+    id: "visas",
+    title: "Visas & entry documents",
+    body: "Requirements depend on nationality, travel document and route of entry. Check with Burundi’s immigration authorities or the relevant embassy before booking. Do not use this preview as an eligibility assessment.",
+    source: "https://www.mae.gov.bi/",
+    sourceLabel: "Burundi Ministry of Foreign Affairs",
+  },
+  {
+    id: "health",
+    title: "Health & preparation",
+    body: "Consult a qualified travel-health professional well before departure about your circumstances, vaccinations and preventive care. Check official health requirements and arrange suitable insurance, including emergency assistance.",
+    source: advisory,
+    sourceLabel: "Official health and entry guidance",
+  },
+  {
+    id: "safety",
+    title: "Safety & current advice",
+    body: "Read your government’s current travel advisory, including regional warnings, before planning any route. Restrictions and security conditions can change quickly. This destination collection is not a statement that a place is currently safe or accessible.",
+    source: advisory,
+    sourceLabel: "Government of Canada — current Burundi advisory",
+  },
+  {
+    id: "money",
+    title: "Money & payments",
+    body: "The currency is the Burundian franc (BIF). Ask accommodation and service providers which payment methods they currently accept. Check current exchange rules and fees with an authorized provider; this preview does not quote rates or prices.",
+    source: "https://www.brb.bi/",
+    sourceLabel: "Bank of the Republic of Burundi",
+  },
+  {
+    id: "connectivity",
+    title: "Staying connected",
+    body: "Confirm roaming or local SIM options, identification requirements and coverage with your provider. Connectivity may be limited away from urban centres. Keep important documents and travel details available offline.",
+    source: advisory,
+    sourceLabel: "Official practical travel guidance",
+  },
+  {
+    id: "best-time",
+    title: "Best time to visit",
+    body: "Weather varies with altitude and location. Drier periods may suit some outdoor plans, but rainfall, access and site arrangements matter more than a broad season label. Check a current forecast and ask your local guide before setting dates.",
+    source: "https://tourisme.gov.bi/",
+    sourceLabel: "Burundi tourism information",
+  },
+].map((item) => ({ ...item, note: verifyNote }));

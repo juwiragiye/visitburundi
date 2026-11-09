@@ -20,12 +20,54 @@
   --text-display--line-height: 1.02;
 }
 @layer base {
-  html { scroll-behavior: smooth; scroll-padding-top: 7rem; }
-  body { @apply bg-ivory font-sans text-ink antialiased; }
-  button, summary, select { -webkit-tap-highlight-color: transparent; }
-  button:not(:disabled), summary { cursor: pointer; }
-  :focus-visible { outline: 3px solid var(--color-warm-red); outline-offset: 4px; }
-  ::selection { background: var(--color-sage); color: var(--color-forest); }
-  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation: none !important; transition: none !important; } }
-  @media print { header, footer, nav, .no-print { display: none !important; } body { background: white; color: black; } main { padding: 0; } }
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 7rem;
+  }
+  body {
+    @apply bg-ivory font-sans text-ink antialiased;
+  }
+  button,
+  summary,
+  select {
+    -webkit-tap-highlight-color: transparent;
+  }
+  button:not(:disabled),
+  summary {
+    cursor: pointer;
+  }
+  :focus-visible {
+    outline: 3px solid var(--color-warm-red);
+    outline-offset: 4px;
+  }
+  ::selection {
+    background: var(--color-sage);
+    color: var(--color-forest);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+  @media print {
+    header,
+    footer,
+    nav,
+    .no-print {
+      display: none !important;
+    }
+    body {
+      background: white;
+      color: black;
+    }
+    main {
+      padding: 0;
+    }
+  }
 }

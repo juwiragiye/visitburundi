@@ -7,6 +7,7 @@
 - **Workflow:** Make small logical commits. Do not add features beyond the task. Note assumptions in the README, flag content needing fact-checking, and keep UI strings easy to extract for French and Kirundi later.
 
 ## Content integrity
+
 - Never invent statistics, visitor numbers, quotes, testimonials, awards, partner logos, endorsements, prices, or phone numbers. Clearly label placeholders and list them in the README.
 - Use accurate, vivid, tasteful editorial copy. Avoid generic tourism filler.
 - Keep practical visas, health, safety, and transport information general and display “Verify with official sources before you travel”.
