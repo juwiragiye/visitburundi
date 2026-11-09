@@ -13,10 +13,12 @@ import { Button } from ".";
 
 export function Tabs({
   items,
+  defaultIndex = 0,
 }: {
+  defaultIndex?: number;
   items: { label: string; content: ReactNode }[];
 }) {
-  const [active, setActive] = useState(0);
+  const [active, setActive] = useState(defaultIndex);
   const id = useId();
   const refs = useRef<(HTMLButtonElement | null)[]>([]);
   return (
@@ -95,7 +97,7 @@ export function Modal({
       aria-labelledby={id}
       onCancel={onClose}
       onClose={onClose}
-      className="m-auto max-h-[85svh] w-[calc(100%-2rem)] max-w-lg overflow-y-auto rounded-2xl bg-ivory p-6 text-ink shadow-lift backdrop:bg-forest/60"
+      className="m-auto max-h-[85svh] w-[calc(100%_-_2rem)] max-w-lg overflow-y-auto rounded-2xl bg-ivory p-6 text-ink shadow-lift backdrop:bg-forest/60"
     >
       <div className="mb-5 flex items-start justify-between gap-4">
         <h2 id={id} className="font-display text-3xl">

@@ -39,6 +39,7 @@
   :focus-visible {
     outline: 3px solid var(--color-warm-red);
     outline-offset: 4px;
+    box-shadow: 0 0 0 3px var(--color-ivory);
   }
   ::selection {
     background: var(--color-sage);

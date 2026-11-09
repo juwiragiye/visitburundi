@@ -1,12 +1,8 @@
+import { Footer } from "@/components/footer";
 import type { Metadata } from "next";
 import { DM_Sans, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
-import {
-  Header,
-  Footer,
-  CookieBanner,
-  BackToTop,
-} from "@/components/site-chrome";
+import { Header, CookieBanner, BackToTop } from "@/components/site-chrome";
 import { ToastProvider } from "@/components/ui/interactive";
 import { TripProvider } from "@/components/trip-context";
 import { siteUrl } from "@/lib/site";
@@ -20,6 +16,7 @@ const editorial = Cormorant_Garamond({
   variable: "--font-editorial",
   subsets: ["latin"],
   weight: ["400", "500", "600"],
+  style: ["normal", "italic"],
   display: "swap",
 });
 

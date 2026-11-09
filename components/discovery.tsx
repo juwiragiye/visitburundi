@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useOptimistic, useTransition } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { Search, ArrowRight, SlidersHorizontal, MapPin } from "lucide-react";
@@ -7,6 +7,7 @@ import { destinations } from "@/data/destinations";
 import { experiences } from "@/data/experiences";
 import { Button, Input, Select } from "./ui";
 import { DestinationCard } from "./destination-card";
+// Phase 2: booking availability must come from a verified provider, never these date cues.
 export function IntentSearch() {
   const router = useRouter();
   return (
@@ -95,6 +96,8 @@ export function DestinationExplorer() {
   const params = useSearchParams();
   const router = useRouter();
   const query = params.get("q") ?? "";
+  const [searchQuery, setSearchQuery] = useOptimistic(query);
+  const [, startSearchTransition] = useTransition();
   const category = params.get("category") ?? "";
   const region = params.get("region") ?? "";
   const season = params.get("season") ?? "";
@@ -109,8 +112,10 @@ export function DestinationExplorer() {
   }
   const results = destinations.filter(
     (d) =>
-      (!query ||
-        `${d.name} ${d.summary}`.toLowerCase().includes(query.toLowerCase())) &&
+      (!searchQuery ||
+        `${d.name} ${d.summary}`
+          .toLowerCase()
+          .includes(searchQuery.toLowerCase())) &&
       (!category || d.category === category) &&
       (!region || d.region === region) &&
       (!season || d.bestSeason === season) &&
@@ -132,8 +137,14 @@ export function DestinationExplorer() {
                 id="filter-search"
                 type="search"
                 placeholder="Try Gitega…"
-                value={query}
-                onChange={(e) => update("q", e.target.value)}
+                value={searchQuery}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  startSearchTransition(() => {
+                    setSearchQuery(value);
+                    update("q", value);
+                  });
+                }}
                 className="pr-9"
               />
               <Search
@@ -215,6 +226,7 @@ export function DestinationExplorer() {
           Clear all filters
         </Link>
       </div>
+      <h2 className="sr-only">Destination results</h2>
       {results.length ? (
         <div className="grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
           {results.map((d) => (
@@ -238,6 +250,7 @@ export function DestinationExplorer() {
     </>
   );
 }
+// Phase 2: replace this schematic with a real mapping/geocoding adapter.
 export function BurundiMap() {
   const [selected, setSelected] = useState(destinations[0]);
   return (

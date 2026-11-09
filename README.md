@@ -4,7 +4,7 @@ A stakeholder preview of a national tourism discovery and trip-planning platform
 
 ## Setup
 
-Node.js 22 LTS or newer, npm. Run `npm ci`, then `npm run dev` and open http://localhost:3000. Run `npm run lint`, `npm run build`, and `npm run format:check` before delivery. `npm start` serves the production build. Fonts are downloaded by next/font at build time; network access is required. No secrets or environment variables are needed. `.env.example` documents this.
+Node.js 22.18+ (or Node.js 24 LTS), npm. Run `npm ci`, then `npm run dev` and open http://localhost:3000. Run `npm run lint`, `npm run build`, and `npm run format:check` before delivery. `npm start` serves the production build. Fonts are downloaded by next/font at build time; network access is required. No secrets or environment variables are needed. `.env.example` documents this.
 
 ## Structure
 
@@ -69,4 +69,13 @@ Season filters are broad planning suggestions, not live conditions or guarantees
 
 ## Validation
 
-Build, lint, formatting and browser QA results will be recorded after the quality pass. Lighthouse 90+ is a target, not a claimed measurement.
+- `npm run lint`: ESLint, zero warnings.
+- `npm run build`: production compilation, TypeScript and static generation; all ten destination routes generated.
+- `npm run format:check`: Prettier formatting.
+- `npm test`: four tests for saved-trip parsing, invalid state, unknown destinations, duplicate IDs and bounded data.
+- `npm run test:ui`: eleven DOM interaction tests for form errors/success, URL filters, intent search, trip persistence, reordering/removal/day changes, sample replacement, blocked storage, clipboard fallback and keyboard tabs.
+- `npm run check:build` (after building): generated HTML inspected for one main landmark and one h1 per page, noindex, image alt attributes and valid local image paths. OG PNG verified at 1200×630; apple icon at 180×180.
+
+**Verification limitation:** the workspace browser-preview launcher injects Vite-only `--host` and `--strictPort` arguments into `next dev`, so the preview server cannot start through that launcher. Browser screenshots, real viewport overflow checks at 375/768/1280px, native dialog focus/escape behavior and Lighthouse scores are not measured here. DOM tests use simulated dialogs and do not substitute for native browser QA. Run these checks on the Vercel preview before stakeholder sign-off. Lighthouse 90+ remains a target; SEO indexing is intentionally disabled.
+
+Responsive layouts use mobile-first grids, wrapping controls and constrained imagery. The roadmap sequence is illustrative, not a dated delivery commitment. Runtime application dependencies are Next.js/React and lucide-react; testing and formatting packages are dev-only.

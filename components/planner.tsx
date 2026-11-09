@@ -17,6 +17,7 @@ import { verifyNote } from "@/lib/site";
 import { Button, Input, Select } from "./ui";
 import { Modal, Tabs, useToast } from "./ui/interactive";
 import { useTrip } from "./trip-context";
+// Phase 2: add optional accounts without making authentication a prerequisite for discovery.
 export function Planner() {
   const { trip, save, storageFailed } = useTrip();
   const params = useSearchParams();
@@ -61,6 +62,8 @@ export function Planner() {
         <div className="rounded-2xl border border-sand bg-white p-6">
           <h2 className="mb-5 font-display text-3xl">Your starting point</h2>
           <Tabs
+            key={params.get("sample") ?? "custom"}
+            defaultIndex={params.has("sample") ? 1 : 0}
             items={[
               {
                 label: "Find a place",
