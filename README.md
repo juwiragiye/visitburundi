@@ -26,7 +26,7 @@ Preview indexing is disabled with robots metadata and `robots.ts`. At launch rem
 
 ## Placeholder content to replace
 
-- [ ] All landscape illustrations: original SVG artwork, not destination photography or a depiction of exact terrain. No third-party image license or attribution is required. Replace through `lib/images.ts` with licensed, location-verified photography and record photographer/license here.
+- [ ] Remaining landscape illustrations: original SVG artwork, not destination photography or a depiction of exact terrain. No third-party image license or attribution is required. Replace through `lib/images.ts` with licensed, location-verified photography and record photographer/license here.
 - [ ] Illustrative map and approximate pin locations (not to scale, not navigation).
 - [ ] Draft About/vision copy and roadmap: obtain stakeholder approval.
 - [ ] Sample itineraries: editorial examples, not bookable offers or confirmed routes.
@@ -56,7 +56,7 @@ Sources checked during implementation (9 November 2026):
 - [Burundi foreign affairs — geography](https://www.mae.gov.bi/geographie/): Lake Rwihinda and geographic context.
 - [Government of Canada travel advice](https://travel.gc.ca/destinations/burundi): current advisories must be checked before travel. The preview is inspiration, not a safety assurance.
 
-Season filters are broad planning suggestions, not live conditions or guarantees. Trip dates are an optional planning cue, not an availability search. Day assignments are editable, and no driving times or route feasibility are implied. No real photography was supplied; all imagery is visibly marked illustrative. Cookie choice is a local demo preference: no tracking or analytics runs. Trip data is stored only in this browser, with graceful storage failure handling.
+Season filters are broad planning suggestions, not live conditions or guarantees. Trip dates are an optional planning cue, not an availability search. Day assignments are editable, and no driving times or route feasibility are implied. Four locally downloaded Burundi photographs now cover Lake Tanganyika, Kibira, Gishora and Karera; other imagery remains labeled illustrative. Cookie choice is a local demo preference: no tracking or analytics runs. Trip data is stored only in this browser, with graceful storage failure handling.
 
 ## Phase 2 suggestions
 
@@ -79,3 +79,7 @@ Season filters are broad planning suggestions, not live conditions or guarantees
 **Verification limitation:** the workspace browser-preview launcher injects Vite-only `--host` and `--strictPort` arguments into `next dev`, so the preview server cannot start through that launcher. Browser screenshots, real viewport overflow checks at 375/768/1280px, native dialog focus/escape behavior and Lighthouse scores are not measured here. DOM tests use simulated dialogs and do not substitute for native browser QA. Run these checks on the Vercel preview before stakeholder sign-off. Lighthouse 90+ remains a target; SEO indexing is intentionally disabled.
 
 Responsive layouts use mobile-first grids, wrapping controls and constrained imagery. The roadmap sequence is illustrative, not a dated delivery commitment. Runtime application dependencies are Next.js/React and lucide-react; testing and formatting packages are dev-only.
+
+## Flag identity and photography
+
+The user-supplied flag is the logo mark. Green/red/white theme tokens echo it; darker shades keep text and controls readable. Four real photos are stored locally as WebP. See [photo credits and licenses](public/images/CREDITS.md). Remaining destination placeholders are deliberately retained rather than mislabeling unrelated photos.

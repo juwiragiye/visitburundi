@@ -10,7 +10,11 @@ export function ItineraryCard({ trip }: { trip: SampleItinerary }) {
       <div className="relative aspect-[16/9]">
         <Image
           src={images[trip.imageKey]}
-          alt={illustrationAlt(trip.title)}
+          alt={
+            images[trip.imageKey].endsWith(".svg")
+              ? illustrationAlt(trip.title)
+              : trip.title
+          }
           fill
           sizes="(max-width:767px) 100vw, 33vw"
           className="object-cover"
@@ -19,7 +23,9 @@ export function ItineraryCard({ trip }: { trip: SampleItinerary }) {
           {trip.days} days · Sample
         </Badge>
         <span className="absolute right-3 bottom-3 rounded bg-forest px-2 py-1 text-[10px] text-white">
-          ILLUSTRATION
+          {images[trip.imageKey].endsWith(".svg")
+            ? "ILLUSTRATION"
+            : "BURUNDI · PHOTO"}
         </span>
       </div>
       <div className="p-6">
