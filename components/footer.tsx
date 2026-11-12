@@ -88,6 +88,9 @@ export function Footer() {
           <p>
             VisitBurundi · Stakeholder preview · Not an official travel advisory
           </p>
+          <a href="/images/CREDITS.md" className="underline">
+            Photo credits
+          </a>
           <nav aria-label="Legal" className="flex gap-6">
             <Link href="/privacy">Privacy</Link>
             <Link href="/terms">Terms</Link>

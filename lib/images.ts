@@ -1,14 +1,14 @@
-// Original illustrative placeholders; replace paths here after photo licensing and location checks.
+// Downloaded photographs and labeled illustration fallbacks. Credits: public/images/CREDITS.md.
 export const images = {
-  hero: "/images/hero.svg",
-  lake: "/images/lake.svg",
-  forest: "/images/forest.svg",
+  hero: "/images/lake.webp",
+  lake: "/images/lake.webp",
+  forest: "/images/forest.webp",
   savanna: "/images/savanna.svg",
   hills: "/images/hills.svg",
   heritage: "/images/heritage.svg",
-  falls: "/images/falls.svg",
+  falls: "/images/falls.webp",
   wetland: "/images/wetland.svg",
-  drums: "/images/drums.svg",
+  drums: "/images/drums.webp",
   canyon: "/images/canyon.svg",
 } as const;
 export type ImageKey = keyof typeof images;

@@ -91,7 +91,7 @@ export default async function Page({
           <div className="relative aspect-[16/10] overflow-hidden rounded-2xl">
             <Image
               src={d.gallery[0]}
-              alt={illustrationAlt(d.name)}
+              alt={d.image.endsWith(".svg") ? illustrationAlt(d.name) : d.name}
               fill
               priority
               sizes="(max-width:767px) 100vw, 65vw"
@@ -109,8 +109,8 @@ export default async function Page({
           </div>
         </div>
         <p className="mt-3 text-xs text-earth">
-          Illustrative gallery · Original landscape artwork, not photographs of
-          this destination.
+          Photos and illustrative supporting artwork. Photo credits are linked
+          in the footer.
         </p>
       </Container>
       <Section>

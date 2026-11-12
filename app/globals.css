@@ -4,17 +4,19 @@
   --font-display: var(--font-editorial);
 }
 @theme {
-  --color-forest: #173e32;
-  --color-forest-light: #285945;
-  --color-warm-red: #a63c2d;
+  --color-forest: #123d25;
+  --color-forest-light: #236b35;
+  --color-warm-red: #bd1236;
   --color-lake: #256779;
-  --color-earth: #695d4c;
-  --color-sand: #e5ddcf;
-  --color-ivory: #faf7f0;
+  --color-earth: #536052;
+  --color-sand: #dfe7df;
+  --color-ivory: #fcfdf9;
+  --color-flag-green: #40ad23;
+  --color-flag-red: #ce1033;
   --color-ink: #202d25;
-  --color-sage: #dce5d8;
+  --color-sage: #e4efdf;
   --radius-editorial: 1.5rem;
-  --shadow-lift: 0 16px 50px #173e3218;
+  --shadow-lift: 0 16px 50px #123d2518;
   --spacing-gutter: clamp(1.25rem, 4vw, 3rem);
   --text-display: clamp(3.5rem, 7vw, 7rem);
   --text-display--line-height: 1.02;
