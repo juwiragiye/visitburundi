@@ -35,7 +35,7 @@ export default function Home() {
       <section className="relative isolate min-h-[650px] bg-forest pb-28 text-ivory sm:min-h-[690px] lg:pb-36">
         <Image
           src={images.hero}
-          alt={illustrationAlt("Burundi’s lake and highland landscapes")}
+          alt="Lake Tanganyika at Bujumbura, photographed by Edouard mhg"
           fill
           priority
           sizes="100vw"
@@ -44,13 +44,13 @@ export default function Home() {
         <div className="absolute inset-0 -z-10 bg-gradient-to-r from-forest/95 via-forest/70 to-forest/15" />
         <Container className="relative pt-16 sm:pt-24">
           <div className="mb-8 inline-flex items-center gap-3 rounded-full border border-white/30 px-4 py-2 text-[10px] font-medium tracking-[.17em] uppercase">
-            <span className="size-1.5 rounded-full bg-[#e8c59b]" /> East Africa,
-            at a different pace
+            <span className="size-1.5 rounded-full bg-flag-green" /> East
+            Africa, at a different pace
           </div>
           <h1 className="max-w-3xl font-display text-display font-medium">
             A different rhythm.
             <br />
-            <span className="italic text-[#ead4b1]">A deeper journey.</span>
+            <span className="italic text-white">A deeper journey.</span>
           </h1>
           <p className="mt-7 max-w-lg text-base leading-8 text-white/90 sm:text-lg">
             Follow the lake into the hills. Find stories in the beat of a drum.
@@ -63,7 +63,7 @@ export default function Home() {
             Find your Burundi <ArrowUpRight size={20} />
           </Link>
           <p className="mt-12 text-[10px] tracking-[.1em] text-white/75 uppercase">
-            Landscape illustration · Photography to follow
+            Lake Tanganyika, Bujumbura · Photo: Edouard mhg
           </p>
         </Container>
         <div className="absolute right-10 bottom-20 hidden text-right lg:block">
