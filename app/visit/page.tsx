@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Container, PageIntro, Accordion, ButtonLink } from "@/components/ui";
 import { practicalInfo } from "@/data/practicalInfo";
 import { verifyNote } from "@/lib/site";
+import { TravelReadinessChecklist } from "@/components/travel-readiness";
 export const metadata: Metadata = {
   title: "Plan your visit",
   description:
@@ -56,34 +57,17 @@ export default function Page() {
             />
           </div>
           <aside className="rounded-2xl bg-sage p-7">
-            <h2 className="font-display text-3xl">Before you go</h2>
-            <p className="mt-3 text-sm text-earth">
-              A personal checklist. Nothing is submitted or saved.
+            <h2 className="font-display text-3xl">Make a thoughtful plan</h2>
+            <p className="mt-4 text-sm leading-7 text-earth">
+              Discover destinations and build an editable outline at your own pace.
+              The preview does not confirm transport, site access or reservations.
             </p>
-            <div className="my-6 space-y-5">
-              {[
-                "Read current official travel advisories",
-                "Confirm entry and travel document requirements",
-                "Consult a travel-health professional",
-                "Arrange suitable travel insurance",
-                "Confirm local transport and site access",
-                "Keep documents and contacts offline",
-              ].map((item) => (
-                <label
-                  key={item}
-                  className="flex cursor-pointer items-start gap-3 text-sm leading-6"
-                >
-                  <input
-                    type="checkbox"
-                    className="mt-1 size-5 shrink-0 accent-forest"
-                  />
-                  {item}
-                </label>
-              ))}
-            </div>
-            <ButtonLink href="/plan">Start a draft itinerary</ButtonLink>
+            <ButtonLink href="/plan" className="mt-6">
+              Start a draft itinerary
+            </ButtonLink>
           </aside>
         </div>
+        <div className="mt-12"><TravelReadinessChecklist /></div>
       </Container>
     </>
   );

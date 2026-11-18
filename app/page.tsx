@@ -81,6 +81,43 @@ export default function Home() {
         <IntentSearch />
       </Container>
       <Container>
+        <nav aria-label="Start exploring Burundi" className="grid gap-3 pt-9 sm:grid-cols-3">
+          {[
+            {
+              href: "/destinations",
+              number: "01",
+              title: "Explore the places",
+              description: "Find lakeside moments, highland views and cultural landmarks.",
+            },
+            {
+              href: "/plan",
+              number: "02",
+              title: "Shape your journey",
+              description: "Save destinations and build a draft day-by-day itinerary.",
+            },
+            {
+              href: "/visit",
+              number: "03",
+              title: "Prepare with care",
+              description: "Check travel guidance and keep track of essential preparations.",
+            },
+          ].map((item) => (
+            <Link
+              href={item.href}
+              key={item.href}
+              className="group flex min-h-44 flex-col justify-between rounded-2xl border border-sand bg-white p-6 transition hover:border-forest/40 hover:shadow-lift"
+            >
+              <div className="flex items-start justify-between">
+                <span className="text-xs font-semibold tracking-widest text-warm-red">{item.number}</span>
+                <ArrowUpRight size={20} className="text-forest transition group-hover:translate-x-1 group-hover:-translate-y-1" aria-hidden="true" />
+              </div>
+              <div>
+                <h2 className="font-display text-3xl text-forest">{item.title}</h2>
+                <p className="mt-2 text-sm leading-6 text-earth">{item.description}</p>
+              </div>
+            </Link>
+          ))}
+        </nav>
         <div className="grid grid-cols-2 gap-x-6 gap-y-7 border-b border-sand py-9 lg:grid-cols-4">
           {[
             { label: "Currency", value: "Burundian franc", note: "BIF" },
