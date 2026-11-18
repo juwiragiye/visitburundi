@@ -58,6 +58,20 @@ Sources checked during implementation (9 November 2026):
 
 Season filters are broad planning suggestions, not live conditions or guarantees. Trip dates are an optional planning cue, not an availability search. Day assignments are editable, and no driving times or route feasibility are implied. No real photography was supplied; all imagery is visibly marked illustrative. Cookie choice is a local demo preference: no tracking or analytics runs. Trip data is stored only in this browser, with graceful storage failure handling.
 
+
+## Visitor journey and readiness enhancements (review branch)
+
+- Three prominent homepage routes now help visitors explore places, create a draft trip, or prepare for travel.
+- The `/visit` page has a six-step, interactive travel-preparation checklist with progress, official-source links, and a reset button.
+- Checklist selections are stored only in the current browser under `visitburundi-readiness-v1`, with session-only fallback when storage is blocked. No data is sent to a server.
+- The checklist confirms personal completion only; it does not certify entry eligibility, access, booking availability, or safety. Official guidance must be checked before travel.
+
+### Review QA
+
+- [ ] Run `npm ci && npm run lint && npm run build && npm run format:check && npm run test && npm run test:ui` in a Node.js 22.18+ environment.
+- [ ] Review mobile and desktop home/visit views and keyboard navigation.
+- [ ] Validate current official source links and travel guidance before publication.
+
 ## Phase 2 suggestions
 
 - CMS with reviewed, attributed destination content and multilingual editorial workflow.
