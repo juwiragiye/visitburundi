@@ -87,30 +87,21 @@ export default async function Page({
             </Link>
           </div>
         </div>
-        <div className="grid gap-3 md:grid-cols-[1.8fr_1fr]">
-          <div className="relative aspect-[16/10] overflow-hidden rounded-2xl">
-            <Image
-              src={d.gallery[0]}
-              alt={d.image.endsWith(".svg") ? illustrationAlt(d.name) : d.name}
-              fill
-              priority
-              sizes="(max-width:767px) 100vw, 65vw"
-              className="object-cover"
-            />
-          </div>
-          <div className="relative hidden overflow-hidden rounded-2xl md:block">
-            <Image
-              src={d.gallery[1]}
-              alt="Illustrative highland landscape; gallery placeholder, not a photograph"
-              fill
-              sizes="35vw"
-              className="object-cover"
-            />
-          </div>
+        <div className="relative aspect-[16/10] overflow-hidden rounded-2xl">
+          <Image
+            src={d.image}
+            alt={d.image.endsWith(".svg") ? illustrationAlt(d.name) : d.name}
+            fill
+            priority
+            sizes="(min-width:1280px) 1280px, 100vw"
+            className="object-cover"
+          />
         </div>
         <p className="mt-3 text-xs text-earth">
-          Photos and illustrative supporting artwork. Photo credits are linked
-          in the footer.
+          {d.image.endsWith(".svg")
+            ? "Illustrative placeholder. "
+            : "Photograph. "}
+          Credits are linked in the footer.
         </p>
       </Container>
       <Section>

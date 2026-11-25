@@ -82,4 +82,4 @@ Responsive layouts use mobile-first grids, wrapping controls and constrained ima
 
 ## Flag identity and photography
 
-The user-supplied flag is the logo mark. Green/red/white theme tokens echo it; darker shades keep text and controls readable. Four real photos are stored locally as WebP. See [photo credits and licenses](public/images/CREDITS.md). Remaining destination placeholders are deliberately retained rather than mislabeling unrelated photos.
+The user-supplied flag is the logo mark, favicon and Apple touch icon (`app/icon.svg`, `app/apple-icon.tsx`). Green/red/white theme tokens echo it; darker shades keep text and controls readable. Four real photos are stored locally as WebP. See [photo credits and licenses](public/images/CREDITS.md). Remaining destination placeholders are deliberately retained rather than mislabeling unrelated photos.

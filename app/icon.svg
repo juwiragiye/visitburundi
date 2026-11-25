@@ -1,1 +1,35 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="16" fill="#173e32"/><path d="M10 42 25 15l11 18 7-12 12 21M12 49h40" fill="none" stroke="#faf7f0" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 60">
+  <title>Flag of Burundi</title>
+  <rect width="100" height="60" fill="#ffffff" />
+  <path d="M0 0 L100 0 L50 30 Z" fill="#C8102E" />
+  <path d="M0 60 L100 60 L50 30 Z" fill="#C8102E" />
+  <path d="M0 0 L0 60 L50 30 Z" fill="#43B02A" />
+  <path d="M100 0 L100 60 L50 30 Z" fill="#43B02A" />
+  <path d="M0 0 L100 60" stroke="#ffffff" stroke-width="8" />
+  <path d="M100 0 L0 60" stroke="#ffffff" stroke-width="8" />
+  <circle cx="50" cy="30" r="14" fill="#ffffff" />
+  <path
+    transform="translate(44 21) scale(0.8)"
+    d="M0 -4 L1 -1.732 L3.464 -2 L2 0 L3.464 2 L1 1.732 L0 4 L-1 1.732 L-3.464 2 L-2 0 L-3.464 -2 L-1 -1.732 Z"
+    fill="#C8102E"
+    stroke="#43B02A"
+    stroke-width="0.8"
+    stroke-linejoin="round"
+  />
+  <path
+    transform="translate(56 21) scale(0.8)"
+    d="M0 -4 L1 -1.732 L3.464 -2 L2 0 L3.464 2 L1 1.732 L0 4 L-1 1.732 L-3.464 2 L-2 0 L-3.464 -2 L-1 -1.732 Z"
+    fill="#C8102E"
+    stroke="#43B02A"
+    stroke-width="0.8"
+    stroke-linejoin="round"
+  />
+  <path
+    transform="translate(50 37) scale(0.8)"
+    d="M0 -4 L1 -1.732 L3.464 -2 L2 0 L3.464 2 L1 1.732 L0 4 L-1 1.732 L-3.464 2 L-2 0 L-3.464 -2 L-1 -1.732 Z"
+    fill="#C8102E"
+    stroke="#43B02A"
+    stroke-width="0.8"
+    stroke-linejoin="round"
+  />
+</svg>
