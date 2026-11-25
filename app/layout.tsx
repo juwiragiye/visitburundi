@@ -1,8 +1,6 @@
-import { Footer } from "@/components/footer";
 import type { Metadata } from "next";
 import { DM_Sans, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
-import { Header, CookieBanner, BackToTop } from "@/components/site-chrome";
 import { ToastProvider } from "@/components/ui/interactive";
 import { TripProvider } from "@/components/trip-context";
 import { siteUrl } from "@/lib/site";
@@ -62,19 +60,7 @@ export default function RootLayout({
     >
       <body>
         <ToastProvider>
-          <TripProvider>
-            <a
-              href="#main-content"
-              className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:rounded-lg focus:bg-ivory focus:p-4"
-            >
-              Skip to content
-            </a>
-            <Header />
-            <main id="main-content">{children}</main>
-            <Footer />
-            <CookieBanner />
-            <BackToTop />
-          </TripProvider>
+          <TripProvider>{children}</TripProvider>
         </ToastProvider>
       </body>
     </html>

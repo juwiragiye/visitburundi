@@ -13,11 +13,10 @@ export type Destination = {
   practicalNotes: string[];
   imageKey: ImageKey;
   image: string;
-  gallery: string[];
   mapPoint: { x: number; y: number };
 };
 // Phase 2: replace this typed local collection with a reviewed CMS adapter.
-const records: Omit<Destination, "image" | "gallery">[] = [
+const records: Omit<Destination, "image">[] = [
   {
     slug: "lake-tanganyika",
     name: "Lake Tanganyika",
@@ -352,7 +351,7 @@ const records: Omit<Destination, "image" | "gallery">[] = [
       "Check official travel advice before planning this stop. Some regions and parks may be subject to restrictions.",
       "No admission prices, opening hours or transport times are confirmed in this preview.",
     ],
-    imageKey: "wetland",
+    imageKey: "rwihinda",
     mapPoint: {
       x: 61,
       y: 15,
@@ -362,7 +361,6 @@ const records: Omit<Destination, "image" | "gallery">[] = [
 export const destinations: Destination[] = records.map((item) => ({
   ...item,
   image: images[item.imageKey],
-  gallery: [images[item.imageKey], images.hills],
 }));
 export const findDestination = (slug: string) =>
   destinations.find((item) => item.slug === slug);

@@ -12,6 +12,7 @@ import { useToast } from "./ui/interactive";
 import { Button } from "./ui";
 import { Plus, Check } from "lucide-react";
 import { empty, parseTrip, type Trip } from "@/lib/trip";
+import { useTranslations } from "@/components/i18n";
 const key = "visitburundi-trip-v1";
 const allowedSlugs = destinations.map((d) => d.slug);
 // Phase 2: replace local-only persistence with an authenticated database adapter.
@@ -48,31 +49,28 @@ export function useTrip() {
 export function AddToTrip({ slug }: { slug: string }) {
   const { trip, save } = useTrip();
   const toast = useToast();
+  const t = useTranslations();
   const added = trip.stops.some((s) => s.slug === slug);
   return (
     <Button
       onClick={() => {
         if (added) {
-          toast(
-            "This destination is already in your trip. Edit it in the planner.",
-          );
+          toast(t.detail.alreadyInTrip);
           return;
         }
         if (trip.stops.length >= 60) {
-          toast(
-            "Your trip already has 60 stops. Remove a stop before adding another.",
-          );
+          toast(t.detail.tripFull);
           return;
         }
         save({
           ...trip,
           stops: [...trip.stops, { id: crypto.randomUUID(), slug, day: 1 }],
         });
-        toast("Added to your trip. Open the planner to choose a day.");
+        toast(t.detail.added);
       }}
     >
       {added ? <Check size={17} /> : <Plus size={17} />}{" "}
-      {added ? "In your trip" : "Add to trip"}
+      {added ? t.detail.inYourTrip : t.detail.addToTrip}
     </Button>
   );
 }

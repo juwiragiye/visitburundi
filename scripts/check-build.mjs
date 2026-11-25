@@ -12,9 +12,17 @@ const pages = files(root).filter(
 );
 assert.equal(
   pages.length,
-  21,
-  "20 content pages and the custom 404 must be generated",
+  61,
+  "20 content pages x 3 locales plus the custom 404 must be generated",
 );
+const localeSegments = ["en", "fr", "rn"];
+// Root-relative links resolve through the default locale; locale-prefixed
+// links resolve to their own segment.
+function hrefToFile(href) {
+  const first = href.split("/")[1] ?? "";
+  if (localeSegments.includes(first)) return `${href.slice(1)}.html`;
+  return `en${href}.html`;
+}
 for (const path of pages) {
   const html = readFileSync(path, "utf8");
   assert.equal(
@@ -38,13 +46,13 @@ for (const path of pages) {
     if (
       href.startsWith("/_next/") ||
       href.startsWith("/icon") ||
-      href.startsWith("/apple-icon")
+      href.startsWith("/apple-icon") ||
+      href.startsWith("/opengraph-image")
     )
       continue;
     if (href === "/") continue;
     assert.ok(
-      existsSync(join(root, `${href.slice(1)}.html`)) ||
-        existsSync(`public${href}`),
+      existsSync(join(root, hrefToFile(href))) || existsSync(`public${href}`),
       `${relative(root, path)}: valid internal link ${href}`,
     );
   }

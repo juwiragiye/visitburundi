@@ -10,6 +10,7 @@ import {
 } from "react";
 import { X } from "lucide-react";
 import { Button } from ".";
+import { useTranslations } from "@/components/i18n";
 
 export function Tabs({
   items,
@@ -21,11 +22,12 @@ export function Tabs({
   const [active, setActive] = useState(defaultIndex);
   const id = useId();
   const refs = useRef<(HTMLButtonElement | null)[]>([]);
+  const t = useTranslations();
   return (
     <div>
       <div
         role="tablist"
-        aria-label="View options"
+        aria-label={t.common.viewOptions}
         className="mb-6 flex flex-wrap gap-2"
       >
         {items.map((item, i) => (
@@ -86,6 +88,7 @@ export function Modal({
 }) {
   const ref = useRef<HTMLDialogElement>(null);
   const id = useId();
+  const t = useTranslations();
   useEffect(() => {
     const dialog = ref.current;
     if (open && !dialog?.open) dialog?.showModal();
@@ -105,7 +108,7 @@ export function Modal({
         </h2>
         <Button
           autoFocus
-          aria-label="Close dialog"
+          aria-label={t.common.closeDialog}
           onClick={onClose}
           className="min-h-11 px-3"
         >

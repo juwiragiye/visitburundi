@@ -5,11 +5,13 @@ import Link from "next/link";
 import { Search, ArrowRight, SlidersHorizontal, MapPin } from "lucide-react";
 import { destinations } from "@/data/destinations";
 import { experiences } from "@/data/experiences";
+import { useTranslations } from "@/components/i18n";
 import { Button, Input, Select } from "./ui";
 import { DestinationCard } from "./destination-card";
 // Phase 2: booking availability must come from a verified provider, never these date cues.
 export function IntentSearch() {
   const router = useRouter();
+  const t = useTranslations();
   return (
     <form
       onSubmit={(e) => {
@@ -30,13 +32,13 @@ export function IntentSearch() {
             htmlFor="intent-destination"
             className="mb-2 flex items-center gap-2 text-[10px] font-semibold tracking-[.13em] uppercase"
           >
-            <MapPin size={13} /> Where calls to you?
+            <MapPin size={13} /> {t.intent.destinationLabel}
           </label>
           <Input
             id="intent-destination"
             name="q"
             list="destination-options"
-            placeholder="Anywhere in Burundi"
+            placeholder={t.intent.destinationPlaceholder}
             className="border-0 bg-white"
           />
           <datalist id="destination-options">
@@ -50,7 +52,7 @@ export function IntentSearch() {
             htmlFor="intent-date"
             className="mb-2 block text-[10px] font-semibold tracking-[.13em] uppercase"
           >
-            When would you go?
+            {t.intent.dateLabel}
           </label>
           <Input
             id="intent-date"
@@ -64,17 +66,13 @@ export function IntentSearch() {
             htmlFor="intent-interest"
             className="mb-2 block text-[10px] font-semibold tracking-[.13em] uppercase"
           >
-            Find your rhythm
+            {t.intent.interestLabel}
           </label>
           <Select id="intent-interest" name="interest" className="border-0">
-            <option value="">All interests</option>
+            <option value="">{t.intent.interestAll}</option>
             {experiences.map((e) => (
               <option key={e.slug} value={e.slug}>
-                {e.icon === "lake"
-                  ? "Lakes & beaches"
-                  : e.icon === "nature"
-                    ? "Nature & wildlife"
-                    : e.icon[0].toUpperCase() + e.icon.slice(1)}
+                {t.categories[e.icon]}
               </option>
             ))}
           </Select>
@@ -83,18 +81,17 @@ export function IntentSearch() {
           className="self-end bg-warm-red hover:bg-warm-red/90"
           type="submit"
         >
-          Explore <ArrowRight size={18} />
+          {t.intent.submit} <ArrowRight size={18} />
         </Button>
       </div>
-      <p className="mt-3 text-[10px] text-earth">
-        Dates are for inspiration only. No live availability or bookings.
-      </p>
+      <p className="mt-3 text-[10px] text-earth">{t.intent.note}</p>
     </form>
   );
 }
 export function DestinationExplorer() {
   const params = useSearchParams();
   const router = useRouter();
+  const t = useTranslations();
   const query = params.get("q") ?? "";
   const [searchQuery, setSearchQuery] = useOptimistic(query);
   const [, startSearchTransition] = useTransition();
@@ -125,18 +122,18 @@ export function DestinationExplorer() {
     <>
       <div className="rounded-2xl border border-sand bg-white p-5">
         <div className="mb-4 flex items-center gap-2 text-sm font-semibold">
-          <SlidersHorizontal size={16} /> Find your kind of place
+          <SlidersHorizontal size={16} /> {t.destinations.filtersTitle}
         </div>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
           <div>
             <label htmlFor="filter-search" className="mb-2 block text-xs">
-              Search destinations
+              {t.destinations.searchLabel}
             </label>
             <div className="relative">
               <Input
                 id="filter-search"
                 type="search"
-                placeholder="Try Gitega…"
+                placeholder={t.destinations.searchPlaceholder}
                 value={searchQuery}
                 onChange={(e) => {
                   const value = e.target.value;
@@ -156,19 +153,22 @@ export function DestinationExplorer() {
           {[
             {
               id: "category",
-              label: "Category",
+              label: t.destinations.categoryLabel,
+              allLabel: t.destinations.allCategories,
               value: category,
               options: [...new Set(destinations.map((d) => d.category))],
             },
             {
               id: "region",
-              label: "Region",
+              label: t.destinations.regionLabel,
+              allLabel: t.destinations.allRegions,
               value: region,
               options: [...new Set(destinations.map((d) => d.region))],
             },
             {
               id: "season",
-              label: "Season",
+              label: t.destinations.seasonLabel,
+              allLabel: t.destinations.allSeasons,
               value: season,
               options: [...new Set(destinations.map((d) => d.bestSeason))],
             },
@@ -182,7 +182,7 @@ export function DestinationExplorer() {
                 value={f.value}
                 onChange={(e) => update(f.id, e.target.value)}
               >
-                <option value="">All {f.label.toLowerCase()}s</option>
+                <option value="">{f.allLabel}</option>
                 {f.options.map((o) => (
                   <option key={o}>{o}</option>
                 ))}
@@ -191,14 +191,14 @@ export function DestinationExplorer() {
           ))}
           <div>
             <label htmlFor="filter-interest" className="mb-2 block text-xs">
-              Interest
+              {t.destinations.interestLabel}
             </label>
             <Select
               id="filter-interest"
               value={interest}
               onChange={(e) => update("interest", e.target.value)}
             >
-              <option value="">All interests</option>
+              <option value="">{t.destinations.allInterests}</option>
               {experiences.map((e) => (
                 <option value={e.slug} key={e.slug}>
                   {e.name}
@@ -207,26 +207,25 @@ export function DestinationExplorer() {
             </Select>
           </div>
         </div>
-        <p className="mt-4 text-xs text-earth">
-          Seasons are planning suggestions; confirm current weather, access and
-          travel advice.
-        </p>
+        <p className="mt-4 text-xs text-earth">{t.destinations.seasonNote}</p>
       </div>
       <div className="flex flex-wrap items-center justify-between gap-4 py-7">
         <p role="status" aria-live="polite" className="text-sm text-earth">
           {results.length}{" "}
-          {results.length === 1 ? "destination" : "destinations"}
-          {date ? ` · Planning cue: ${date}` : ""}
+          {results.length === 1
+            ? t.common.destinationOne
+            : t.common.destinationMany}
+          {date ? ` · ${t.destinations.planningCue}: ${date}` : ""}
         </p>
         <Link
           href="/destinations"
           scroll={false}
           className="min-h-11 py-3 text-sm font-semibold underline underline-offset-4"
         >
-          Clear all filters
+          {t.destinations.clearFilters}
         </Link>
       </div>
-      <h2 className="sr-only">Destination results</h2>
+      <h2 className="sr-only">{t.destinations.resultsHeading}</h2>
       {results.length ? (
         <div className="grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
           {results.map((d) => (
@@ -235,15 +234,13 @@ export function DestinationExplorer() {
         </div>
       ) : (
         <div className="rounded-2xl bg-sage px-6 py-16 text-center">
-          <h2 className="font-display text-4xl">A wider horizon awaits.</h2>
-          <p className="mt-4 text-earth">
-            No destinations match these filters. Try a broader search.
-          </p>
+          <h2 className="font-display text-4xl">{t.destinations.emptyTitle}</h2>
+          <p className="mt-4 text-earth">{t.destinations.emptyBody}</p>
           <Button
             className="mt-6"
             onClick={() => router.replace("/destinations", { scroll: false })}
           >
-            Reset filters
+            {t.destinations.resetFilters}
           </Button>
         </div>
       )}
@@ -253,15 +250,11 @@ export function DestinationExplorer() {
 // Phase 2: replace this schematic with a real mapping/geocoding adapter.
 export function BurundiMap() {
   const [selected, setSelected] = useState(destinations[0]);
+  const t = useTranslations();
   return (
     <div className="grid items-center gap-10 lg:grid-cols-2">
       <div className="relative rounded-3xl bg-[#e9e7d8] p-6">
-        <svg
-          viewBox="0 0 100 100"
-          role="img"
-          aria-label="Illustrative Burundi destination map, not to scale"
-          className="mx-auto max-h-[430px] w-full"
-        >
+        <svg viewBox="0 0 100 100" className="mx-auto max-h-[430px] w-full">
           <path
             d="M30 12 47 8 60 12 70 8 77 20 87 30 82 48 86 60 78 79 64 92 48 88 39 76 28 65 22 48 19 32Z"
             fill="#c9d3bc"
@@ -280,7 +273,7 @@ export function BurundiMap() {
             <a
               href={`/destinations/${d.slug}`}
               key={d.slug}
-              aria-label={`Explore ${d.name}`}
+              aria-label={`${t.map.explorePrefix} ${d.name}`}
               onFocus={() => setSelected(d)}
               onMouseEnter={() => setSelected(d)}
             >
@@ -302,13 +295,11 @@ export function BurundiMap() {
             </a>
           ))}
         </svg>
-        <p className="mt-3 text-center text-xs text-earth">
-          Illustrative map · Not to scale · Not for navigation
-        </p>
+        <p className="mt-3 text-center text-xs text-earth">{t.map.note}</p>
       </div>
       <div>
         <p className="text-xs font-semibold tracking-widest text-warm-red uppercase">
-          Choose a point of departure
+          {t.map.chooseDeparture}
         </p>
         <h3 className="mt-4 font-display text-4xl">{selected.name}</h3>
         <p className="mt-4 text-earth">{selected.summary}</p>
@@ -316,7 +307,7 @@ export function BurundiMap() {
           href={`/destinations/${selected.slug}`}
           className="mt-6 inline-flex min-h-11 items-center gap-3 font-semibold"
         >
-          Explore this place <ArrowRight size={18} />
+          {t.map.explorePlace} <ArrowRight size={18} />
         </Link>
         <div className="mt-8 grid grid-cols-2 gap-2">
           {destinations.map((d) => (

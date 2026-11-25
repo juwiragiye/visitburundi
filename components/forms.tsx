@@ -2,8 +2,10 @@
 import { useId, useRef, useState, type FormEvent } from "react";
 import { ArrowUpRight, CheckCircle2 } from "lucide-react";
 import { Button, Input, Select } from "./ui";
+import { useTranslations } from "@/components/i18n";
 const emailValid = (email: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 export function Newsletter({ dark = false }: { dark?: boolean }) {
+  const t = useTranslations();
   const id = useId();
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
@@ -14,7 +16,7 @@ export function Newsletter({ dark = false }: { dark?: boolean }) {
       new FormData(e.currentTarget).get("email") ?? "",
     ).trim();
     if (!emailValid(email)) {
-      setError("Enter a valid email address.");
+      setError(t.forms.emailError);
       input.current?.focus();
       return;
     }
@@ -26,12 +28,12 @@ export function Newsletter({ dark = false }: { dark?: boolean }) {
       {success ? (
         <p role="status" className="flex items-start gap-2">
           <CheckCircle2 className="shrink-0" />
-          Preview complete. Your address was not sent or saved.
+          {t.forms.newsletterSuccess}
         </p>
       ) : (
         <form onSubmit={submit} noValidate>
           <label htmlFor={id} className="mb-2 block text-sm">
-            Email address
+            {t.forms.emailLabel}
           </label>
           <div className="flex flex-col gap-2 sm:flex-row">
             <Input
@@ -40,20 +42,17 @@ export function Newsletter({ dark = false }: { dark?: boolean }) {
               name="email"
               type="email"
               autoComplete="email"
-              placeholder="you@example.com"
+              placeholder={t.forms.emailPlaceholder}
               aria-invalid={!!error}
               aria-describedby={`${id}-note ${id}-error`}
               required
             />
             <Button
               type="submit"
-              className={
-                dark
-                  ? "shrink-0 bg-ivory text-forest hover:bg-sand"
-                  : "shrink-0"
-              }
+              variant={dark ? "light" : "primary"}
+              className="shrink-0"
             >
-              Keep me inspired <ArrowUpRight size={17} />
+              {t.forms.keepInspired} <ArrowUpRight size={17} />
             </Button>
           </div>
           <p
@@ -66,12 +65,13 @@ export function Newsletter({ dark = false }: { dark?: boolean }) {
         </form>
       )}
       <p id={`${id}-note`} className="mt-3 text-xs opacity-80">
-        Preview form only. No email is sent, stored, or subscribed.
+        {t.forms.previewNote}
       </p>
     </div>
   );
 }
 export function ContactForm() {
+  const t = useTranslations();
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [success, setSuccess] = useState(false);
   const form = useRef<HTMLFormElement>(null);
@@ -79,13 +79,12 @@ export function ContactForm() {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
     const next: Record<string, string> = {};
-    if (!String(data.get("name") ?? "").trim()) next.name = "Enter your name.";
+    if (!String(data.get("name") ?? "").trim()) next.name = t.forms.nameError;
     if (!emailValid(String(data.get("email") ?? "").trim()))
-      next.email = "Enter a valid email address.";
+      next.email = t.forms.emailError;
     if (String(data.get("message") ?? "").trim().length < 20)
-      next.message = "Tell us a little more (at least 20 characters).";
-    if (!data.get("consent"))
-      next.consent = "Confirm that you understand this is a preview.";
+      next.message = t.forms.messageError;
+    if (!data.get("consent")) next.consent = t.forms.consentError;
     setErrors(next);
     if (Object.keys(next).length) {
       (
@@ -101,15 +100,10 @@ export function ContactForm() {
     return (
       <div role="status" className="rounded-2xl bg-sage p-8">
         <CheckCircle2 className="mb-4" />
-        <h2 className="font-display text-3xl">
-          Thank you for trying the preview.
-        </h2>
-        <p className="mt-4 leading-relaxed">
-          Your message has not been sent or saved. A real partner contact
-          channel will be added after stakeholder approval.
-        </p>
+        <h2 className="font-display text-3xl">{t.forms.successTitle}</h2>
+        <p className="mt-4 leading-relaxed">{t.forms.successBody}</p>
         <Button onClick={() => setSuccess(false)} className="mt-6">
-          Try another message
+          {t.forms.tryAgain}
         </Button>
       </div>
     );
@@ -117,8 +111,8 @@ export function ContactForm() {
   return (
     <form ref={form} onSubmit={submit} noValidate className="space-y-6">
       {[
-        { name: "name", label: "Your name", type: "text" },
-        { name: "email", label: "Email address", type: "email" },
+        { name: "name", label: t.forms.nameLabel, type: "text" },
+        { name: "email", label: t.forms.emailLabel, type: "email" },
       ].map((field) => (
         <div key={field.name}>
           <label
@@ -147,17 +141,17 @@ export function ContactForm() {
       ))}
       <div>
         <label htmlFor="interest" className="mb-2 block font-medium">
-          I’m interested in
+          {t.forms.interestLabel}
         </label>
         <Select id="interest" name="interest">
-          <option>Tourism partnership</option>
-          <option>Sharing local knowledge</option>
-          <option>Platform feedback</option>
+          <option>{t.forms.interestOptions.partnership}</option>
+          <option>{t.forms.interestOptions.knowledge}</option>
+          <option>{t.forms.interestOptions.feedback}</option>
         </Select>
       </div>
       <div>
         <label htmlFor="contact-message" className="mb-2 block font-medium">
-          Your message <span aria-hidden="true">*</span>
+          {t.forms.messageLabel} <span aria-hidden="true">*</span>
         </label>
         <textarea
           id="contact-message"
@@ -183,7 +177,7 @@ export function ContactForm() {
             aria-invalid={!!errors.consent}
             aria-describedby="consent-error"
           />
-          I understand this preview does not send or store my message.
+          {t.forms.consentLabel}
         </label>
         <p
           id="consent-error"
@@ -194,11 +188,9 @@ export function ContactForm() {
         </p>
       </div>
       <Button type="submit">
-        Preview submission <ArrowUpRight size={18} />
+        {t.forms.submit} <ArrowUpRight size={18} />
       </Button>
-      <p className="text-sm text-earth">
-        Fields marked * are required. No real submission is made.
-      </p>
+      <p className="text-sm text-earth">{t.forms.requiredNote}</p>
     </form>
   );
 }

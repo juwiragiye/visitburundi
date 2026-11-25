@@ -26,7 +26,7 @@ Preview indexing is disabled with robots metadata and `robots.ts`. At launch rem
 
 ## Placeholder content to replace
 
-- [ ] Remaining landscape illustrations: original SVG artwork, not destination photography or a depiction of exact terrain. No third-party image license or attribution is required. Replace through `lib/images.ts` with licensed, location-verified photography and record photographer/license here.
+- [x] Remaining landscape illustrations: replaced with licensed, location-verified photography from Wikimedia Commons, recorded in `public/images/CREDITS.md`.
 - [ ] Illustrative map and approximate pin locations (not to scale, not navigation).
 - [ ] Draft About/vision copy and roadmap: obtain stakeholder approval.
 - [ ] Sample itineraries: editorial examples, not bookable offers or confirmed routes.
@@ -56,7 +56,7 @@ Sources checked during implementation (9 November 2026):
 - [Burundi foreign affairs — geography](https://www.mae.gov.bi/geographie/): Lake Rwihinda and geographic context.
 - [Government of Canada travel advice](https://travel.gc.ca/destinations/burundi): current advisories must be checked before travel. The preview is inspiration, not a safety assurance.
 
-Season filters are broad planning suggestions, not live conditions or guarantees. Trip dates are an optional planning cue, not an availability search. Day assignments are editable, and no driving times or route feasibility are implied. Four locally downloaded Burundi photographs now cover Lake Tanganyika, Kibira, Gishora and Karera; other imagery remains labeled illustrative. Cookie choice is a local demo preference: no tracking or analytics runs. Trip data is stored only in this browser, with graceful storage failure handling.
+Season filters are broad planning suggestions, not live conditions or guarantees. Trip dates are an optional planning cue, not an availability search. Day assignments are editable, and no driving times or route feasibility are implied. All ten destinations now use locally downloaded, licensed Burundi photographs; see `public/images/CREDITS.md`. Cookie choice is a local demo preference: no tracking or analytics runs. Trip data is stored only in this browser, with graceful storage failure handling.
 
 ## Phase 2 suggestions
 
@@ -74,12 +74,13 @@ Season filters are broad planning suggestions, not live conditions or guarantees
 - `npm run format:check`: Prettier formatting.
 - `npm test`: four tests for saved-trip parsing, invalid state, unknown destinations, duplicate IDs and bounded data.
 - `npm run test:ui`: eleven DOM interaction tests for form errors/success, URL filters, intent search, trip persistence, reordering/removal/day changes, sample replacement, blocked storage, clipboard fallback and keyboard tabs.
+- `npm run test:e2e`: Playwright browser checks — no horizontal overflow at 375/768/1280px across all routes, native dialog focus-trap/Escape behavior, and axe automated accessibility (no critical or serious violations). Requires `npx playwright install chromium` first.
 - `npm run check:build` (after building): generated HTML inspected for one main landmark and one h1 per page, noindex, image alt attributes and valid local image paths. OG PNG verified at 1200×630; apple icon at 180×180.
 
-**Verification limitation:** the workspace browser-preview launcher injects Vite-only `--host` and `--strictPort` arguments into `next dev`, so the preview server cannot start through that launcher. Browser screenshots, real viewport overflow checks at 375/768/1280px, native dialog focus/escape behavior and Lighthouse scores are not measured here. DOM tests use simulated dialogs and do not substitute for native browser QA. Run these checks on the Vercel preview before stakeholder sign-off. Lighthouse 90+ remains a target; SEO indexing is intentionally disabled.
+**Verification limitation:** the workspace browser-preview launcher injects Vite-only `--host` and `--strictPort` arguments into `next dev`, so the preview server cannot start through that launcher; `next start` serves the production build instead. Playwright (`npm run test:e2e`) now covers viewport overflow, native dialog focus/escape and axe accessibility. Lighthouse performance scores are not yet measured. Lighthouse 90+ remains a target; SEO indexing is intentionally disabled.
 
 Responsive layouts use mobile-first grids, wrapping controls and constrained imagery. The roadmap sequence is illustrative, not a dated delivery commitment. Runtime application dependencies are Next.js/React and lucide-react; testing and formatting packages are dev-only.
 
 ## Flag identity and photography
 
-The user-supplied flag is the logo mark. Green/red/white theme tokens echo it; darker shades keep text and controls readable. Four real photos are stored locally as WebP. See [photo credits and licenses](public/images/CREDITS.md). Remaining destination placeholders are deliberately retained rather than mislabeling unrelated photos.
+The user-supplied flag is the logo mark, favicon and Apple touch icon (`app/icon.svg`, `app/apple-icon.tsx`). Green/red/white theme tokens echo it; darker shades keep text and controls readable. All ten destinations use locally stored, licensed photographs (WebP) sourced from Wikimedia Commons; see [photo credits and licenses](public/images/CREDITS.md). Each photograph is site-named at the source, and a visual confirmation of every image's location is recommended before public launch.

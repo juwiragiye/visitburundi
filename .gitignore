@@ -41,3 +41,10 @@ yarn-error.log*
 next-env.d.ts
 
 !.env.example
+
+# browser QA (local, environment-specific)
+/.pw-browsers/
+/.chromium-libs/
+/.npm-cache/
+/test-results/
+/playwright-report/
