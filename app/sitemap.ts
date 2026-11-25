@@ -1,8 +1,10 @@
 import type { MetadataRoute } from "next";
 import { destinations } from "@/data/destinations";
 import { siteUrl } from "@/lib/site";
+import { locales } from "@/lib/i18n";
+
 export default function sitemap(): MetadataRoute.Sitemap {
-  return [
+  const paths = [
     "",
     "/destinations",
     "/experiences",
@@ -14,5 +16,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/terms",
     "/cookies",
     ...destinations.map((item) => `/destinations/${item.slug}`),
-  ].map((path) => ({ url: `${siteUrl}${path}` }));
+  ];
+  return locales.flatMap((locale) =>
+    paths.map((path) => ({
+      url: path ? `${siteUrl}/${locale}${path}` : `${siteUrl}/${locale}`,
+    })),
+  );
 }

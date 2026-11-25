@@ -13,13 +13,14 @@ import {
 } from "lucide-react";
 import { destinations, findDestination } from "@/data/destinations";
 import { sampleItineraries } from "@/data/sampleItineraries";
-import { verifyNote } from "@/lib/site";
 import { Button, Input, Select } from "./ui";
 import { Modal, Tabs, useToast } from "./ui/interactive";
 import { useTrip } from "./trip-context";
+import { useTranslations } from "@/components/i18n";
 // Phase 2: add optional accounts without making authentication a prerequisite for discovery.
 export function Planner() {
   const { trip, save, storageFailed } = useTrip();
+  const t = useTranslations();
   const params = useSearchParams();
   const toast = useToast();
   const [search, setSearch] = useState("");
@@ -37,7 +38,7 @@ export function Planner() {
       stops: sample.stops.map((s) => ({ ...s, id: crypto.randomUUID() })),
     });
     setPending(null);
-    toast("Sample loaded. Adjust the days and stops to make it yours.");
+    toast(t.plan.sampleLoaded);
   }
   function move(index: number, direction: number) {
     const stops = [...trip.stops];
@@ -45,13 +46,13 @@ export function Planner() {
     if (target < 0 || target >= stops.length) return;
     [stops[index], stops[target]] = [stops[target], stops[index]];
     save({ ...trip, stops });
-    toast("Stop moved. Day assignments are unchanged.");
+    toast(t.plan.stopMoved);
   }
-  const summary = `VisitBurundi — my draft journey\n${trip.days} days · ${trip.stops.length} stops\n\n${trip.stops.map((s, i) => `${i + 1}. Day ${s.day}: ${findDestination(s.slug)?.name}`).join("\n")}\n\nDraft inspiration only. Routes, timings and access are not confirmed. ${verifyNote}.`;
+  const summary = `${t.plan.summaryTitle}\n${trip.days} ${t.common.days} · ${trip.stops.length} ${t.common.stops}\n\n${trip.stops.map((s, i) => `${i + 1}. ${t.common.day} ${s.day}: ${findDestination(s.slug)?.name}`).join("\n")}\n\n${t.plan.summaryNote} ${t.common.verifyNote}.`;
   async function copy() {
     try {
       await navigator.clipboard.writeText(summary);
-      toast("Trip summary copied.");
+      toast(t.plan.copied);
     } catch {
       setCopyFallback(true);
     }
@@ -60,25 +61,25 @@ export function Planner() {
     <div className="grid items-start gap-8 lg:grid-cols-[.8fr_1.3fr]">
       <aside className="space-y-6">
         <div className="rounded-2xl border border-sand bg-white p-6">
-          <h2 className="mb-5 font-display text-3xl">Your starting point</h2>
+          <h2 className="mb-5 font-display text-3xl">{t.plan.startingPoint}</h2>
           <Tabs
             key={params.get("sample") ?? "custom"}
             defaultIndex={params.has("sample") ? 1 : 0}
             items={[
               {
-                label: "Find a place",
+                label: t.plan.findPlace,
                 content: (
                   <>
                     <label
                       htmlFor="planner-search"
                       className="mb-2 block text-sm"
                     >
-                      Search destinations
+                      {t.plan.searchLabel}
                     </label>
                     <Input
                       id="planner-search"
                       type="search"
-                      placeholder="Lake, forest, culture…"
+                      placeholder={t.plan.searchPlaceholder}
                       value={search}
                       onChange={(e) => setSearch(e.target.value)}
                     />
@@ -106,7 +107,10 @@ export function Planner() {
                               </p>
                             </div>
                             <button
-                              aria-label={`Add ${d.name} to trip`}
+                              aria-label={t.plan.addAria.replace(
+                                "{name}",
+                                d.name,
+                              )}
                               disabled={trip.stops.length >= 60}
                               className="flex size-11 shrink-0 items-center justify-center rounded-full border border-sand hover:bg-sage disabled:opacity-50"
                               onClick={() => {
@@ -121,7 +125,7 @@ export function Planner() {
                                     },
                                   ],
                                 });
-                                toast(`${d.name} added to day 1.`);
+                                toast(`${d.name} ${t.plan.addedToDay1}`);
                               }}
                             >
                               <Plus size={18} />
@@ -135,18 +139,18 @@ export function Planner() {
                         .includes(search.toLowerCase()),
                     ) && (
                       <p role="status" className="py-6 text-sm text-earth">
-                        No places found. Try a broader search.
+                        {t.plan.noPlacesFound}
                       </p>
                     )}
                   </>
                 ),
               },
               {
-                label: "Sample journeys",
+                label: t.plan.sampleJourneys,
                 content: (
                   <>
                     <label htmlFor="sample" className="mb-2 block text-sm">
-                      Start from an editorial example
+                      {t.plan.sampleLabel}
                     </label>
                     <Select
                       id="sample"
@@ -155,7 +159,7 @@ export function Planner() {
                     >
                       {sampleItineraries.map((s) => (
                         <option key={s.id} value={s.id}>
-                          {s.days} days · {s.title}
+                          {s.days} {t.common.days} · {s.title}
                         </option>
                       ))}
                     </Select>
@@ -166,7 +170,7 @@ export function Planner() {
                       {selectedSample.stops.map((s, i) => (
                         <li key={i}>
                           <span className="mr-2 text-warm-red">
-                            Day {s.day}
+                            {t.common.day} {s.day}
                           </span>
                           {findDestination(s.slug)?.name}
                         </li>
@@ -179,11 +183,10 @@ export function Planner() {
                           : loadSample(selectedSample.id)
                       }
                     >
-                      Use this sample
+                      {t.plan.useSample}
                     </Button>
                     <p className="mt-3 text-xs text-earth">
-                      An illustrative outline, not a verified route or bookable
-                      offer.
+                      {t.plan.sampleNote}
                     </p>
                   </>
                 ),
@@ -192,16 +195,15 @@ export function Planner() {
           />
         </div>
         <div className="rounded-2xl bg-sage p-6">
-          <h2 className="font-semibold">A plan, with room to change.</h2>
+          <h2 className="font-semibold">{t.plan.roomToChange}</h2>
           <p className="mt-3 text-sm leading-relaxed text-earth">
-            Travel times, availability and route feasibility are not calculated.
-            Review this outline with a qualified local operator.
+            {t.plan.roomToChangeBody}
           </p>
           <Link
             href="/visit"
             className="mt-4 inline-block min-h-11 py-2 text-sm font-semibold underline"
           >
-            {verifyNote}
+            {t.common.verifyNote}
           </Link>
         </div>
       </aside>
@@ -212,15 +214,15 @@ export function Planner() {
         <div className="flex flex-wrap items-start justify-between gap-5">
           <div>
             <p className="mb-2 text-xs font-semibold tracking-widest text-warm-red uppercase">
-              Your personal outline
+              {t.plan.outlineEyebrow}
             </p>
             <h2 id="journey-heading" className="font-display text-4xl">
-              The journey takes shape.
+              {t.plan.outlineTitle}
             </h2>
           </div>
           <div>
             <label htmlFor="trip-days" className="mb-2 block text-xs">
-              Number of days
+              {t.plan.daysLabel}
             </label>
             <Select
               id="trip-days"
@@ -234,9 +236,7 @@ export function Planner() {
                     day: Math.min(s.day, days),
                   })),
                 });
-                toast(
-                  "Trip length updated. Stops beyond the new length move to the final day.",
-                );
+                toast(t.plan.daysUpdated);
               }}
               className="w-24"
             >
@@ -249,13 +249,12 @@ export function Planner() {
           </div>
         </div>
         <p role="status" className="mt-4 text-sm text-earth">
-          {trip.days} days · {trip.stops.length} stops ·{" "}
-          {new Set(trip.stops.map((s) => s.slug)).size} destinations
+          {trip.days} {t.common.days} · {trip.stops.length} {t.common.stops} ·{" "}
+          {new Set(trip.stops.map((s) => s.slug)).size} {t.common.destinations}
         </p>
         {storageFailed && (
           <p role="alert" className="mt-4 rounded-xl bg-sand p-4 text-sm">
-            Browser storage is unavailable. Your trip works for this session,
-            but may be lost on refresh. Copy or print it to keep a record.
+            {t.plan.storageAlert}
           </p>
         )}
         {trip.stops.length ? (
@@ -276,11 +275,16 @@ export function Planner() {
                     <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
                       <div className="flex items-center gap-2">
                         <label htmlFor={`day-${s.id}`} className="text-xs">
-                          Day
+                          {t.common.day}
                         </label>
                         <Select
                           id={`day-${s.id}`}
-                          aria-label={`Day for stop ${i + 1}: ${findDestination(s.slug)?.name}`}
+                          aria-label={t.plan.dayAria
+                            .replace("{index}", String(i + 1))
+                            .replace(
+                              "{name}",
+                              findDestination(s.slug)?.name ?? "",
+                            )}
                           value={s.day}
                           onChange={(e) =>
                             save({
@@ -304,7 +308,10 @@ export function Planner() {
                       <div className="no-print flex gap-1">
                         <button
                           disabled={i === 0}
-                          aria-label={`Move stop ${i + 1} up`}
+                          aria-label={t.plan.moveUpAria.replace(
+                            "{index}",
+                            String(i + 1),
+                          )}
                           onClick={() => move(i, -1)}
                           className="rounded-lg p-3 hover:bg-sage disabled:opacity-30"
                         >
@@ -312,14 +319,22 @@ export function Planner() {
                         </button>
                         <button
                           disabled={i === trip.stops.length - 1}
-                          aria-label={`Move stop ${i + 1} down`}
+                          aria-label={t.plan.moveDownAria.replace(
+                            "{index}",
+                            String(i + 1),
+                          )}
                           onClick={() => move(i, 1)}
                           className="rounded-lg p-3 hover:bg-sage disabled:opacity-30"
                         >
                           <ArrowDown size={18} />
                         </button>
                         <button
-                          aria-label={`Remove stop ${i + 1}: ${findDestination(s.slug)?.name}`}
+                          aria-label={t.plan.removeAria
+                            .replace("{index}", String(i + 1))
+                            .replace(
+                              "{name}",
+                              findDestination(s.slug)?.name ?? "",
+                            )}
                           onClick={() => {
                             save({
                               ...trip,
@@ -327,7 +342,7 @@ export function Planner() {
                                 (item) => item.id !== s.id,
                               ),
                             });
-                            toast("Stop removed.");
+                            toast(t.plan.stopRemoved);
                           }}
                           className="rounded-lg p-3 text-warm-red hover:bg-ivory"
                         >
@@ -343,66 +358,54 @@ export function Planner() {
         ) : (
           <div className="my-8 rounded-xl border border-dashed border-earth/40 px-6 py-16 text-center">
             <MapPin className="mx-auto mb-4 text-warm-red" />
-            <h3 className="font-display text-3xl">
-              Every journey starts somewhere.
-            </h3>
+            <h3 className="font-display text-3xl">{t.plan.emptyTitle}</h3>
             <p className="mx-auto mt-3 max-w-sm text-sm leading-relaxed text-earth">
-              Add a destination from the list, or start with a sample journey.
-              Your outline will appear here.
+              {t.plan.emptyBody}
             </p>
           </div>
         )}
         <div className="no-print flex flex-wrap gap-3">
           <Button disabled={!trip.stops.length} onClick={copy}>
             <Copy size={16} />
-            Copy summary
+            {t.plan.copySummary}
           </Button>
           <Button
             disabled={!trip.stops.length}
             onClick={() => window.print()}
-            className="border border-forest bg-transparent text-forest hover:bg-sage"
+            variant="outline"
           >
             <Printer size={16} />
-            Print
+            {t.plan.print}
           </Button>
         </div>
         <p className="mt-5 text-xs leading-relaxed text-earth">
-          Saved on this browser only, when storage is available. No account,
-          booking, or data transfer. Up to 30 days and 60 stops.
+          {t.plan.savedNote}
         </p>
       </section>
       <Modal
         open={!!pending}
         onClose={() => setPending(null)}
-        title="Replace your current outline?"
+        title={t.plan.replaceTitle}
       >
-        <p className="mb-6 text-earth">
-          Loading a sample replaces the stops you have added. Copy your current
-          summary first if you want to keep it.
-        </p>
+        <p className="mb-6 text-earth">{t.plan.replaceBody}</p>
         <div className="flex flex-wrap gap-3">
           <Button onClick={() => pending && loadSample(pending)}>
-            Replace with sample
+            {t.plan.replaceConfirm}
           </Button>
-          <Button
-            className="bg-sand text-forest hover:bg-sage"
-            onClick={() => setPending(null)}
-          >
-            Keep my trip
+          <Button variant="sage" onClick={() => setPending(null)}>
+            {t.plan.keepTrip}
           </Button>
         </div>
       </Modal>
       <Modal
         open={copyFallback}
         onClose={() => setCopyFallback(false)}
-        title="Copy your summary"
+        title={t.plan.copyTitle}
       >
-        <p className="mb-4 text-sm text-earth">
-          Clipboard access is unavailable. Select and copy this text manually.
-        </p>
+        <p className="mb-4 text-sm text-earth">{t.plan.copyBody}</p>
         <textarea
           readOnly
-          aria-label="Trip summary to copy"
+          aria-label={t.plan.copyLabel}
           value={summary}
           rows={12}
           onFocus={(e) => e.target.select()}

@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import type { Destination } from "@/data/destinations";
-import { illustrationAlt } from "@/lib/images";
 import { Badge } from "./ui";
 export function DestinationCard({
   destination,
@@ -17,11 +16,7 @@ export function DestinationCard({
         <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-sand">
           <Image
             src={destination.image}
-            alt={
-              destination.image.endsWith(".svg")
-                ? illustrationAlt(destination.name)
-                : destination.name
-            }
+            alt={destination.name}
             fill
             sizes="(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 33vw"
             priority={priority}
@@ -31,9 +26,7 @@ export function DestinationCard({
             {destination.category}
           </Badge>
           <span className="absolute right-3 bottom-3 rounded bg-forest/90 px-2 py-1 text-[10px] tracking-wide text-white">
-            {destination.image.endsWith(".svg")
-              ? "ILLUSTRATION"
-              : "BURUNDI · PHOTO"}
+            BURUNDI · PHOTO
           </span>
         </div>
         <div className="pt-5">

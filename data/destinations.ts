@@ -351,7 +351,7 @@ const records: Omit<Destination, "image">[] = [
       "Check official travel advice before planning this stop. Some regions and parks may be subject to restrictions.",
       "No admission prices, opening hours or transport times are confirmed in this preview.",
     ],
-    imageKey: "wetland",
+    imageKey: "rwihinda",
     mapPoint: {
       x: 61,
       y: 15,

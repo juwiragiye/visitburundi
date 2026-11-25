@@ -2,15 +2,37 @@ import Link from "next/link";
 import type { ComponentProps, ReactNode } from "react";
 
 export const buttonStyles =
-  "inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-forest px-6 py-3 text-sm font-semibold text-white transition hover:bg-forest-light disabled:cursor-not-allowed disabled:opacity-50";
-export function Button({ className = "", ...props }: ComponentProps<"button">) {
-  return <button className={`${buttonStyles} ${className}`} {...props} />;
+  "inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition disabled:cursor-not-allowed disabled:opacity-50";
+export const buttonVariants = {
+  primary: "bg-forest text-white hover:bg-forest-light",
+  outline: "border border-forest bg-transparent text-forest hover:bg-sage",
+  sage: "bg-sand text-forest hover:bg-sage",
+  light: "bg-ivory text-forest hover:bg-sand",
+} as const;
+export type ButtonVariant = keyof typeof buttonVariants;
+export function Button({
+  className = "",
+  variant = "primary",
+  ...props
+}: ComponentProps<"button"> & { variant?: ButtonVariant }) {
+  return (
+    <button
+      className={`${buttonStyles} ${buttonVariants[variant]} ${className}`}
+      {...props}
+    />
+  );
 }
 export function ButtonLink({
   className = "",
+  variant = "primary",
   ...props
-}: ComponentProps<typeof Link>) {
-  return <Link className={`${buttonStyles} ${className}`} {...props} />;
+}: ComponentProps<typeof Link> & { variant?: ButtonVariant }) {
+  return (
+    <Link
+      className={`${buttonStyles} ${buttonVariants[variant]} ${className}`}
+      {...props}
+    />
+  );
 }
 export function Container({ className = "", ...props }: ComponentProps<"div">) {
   return (
